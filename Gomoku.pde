@@ -4,6 +4,8 @@
  Running under Processing environment
  */
 
+import java.util.Arrays;
+
 color test;
 color black = color(0, 0, 0);
 color white = color(255, 255, 255);
@@ -52,10 +54,12 @@ void draw() {
   //text("X:" + curr_coor[0], 50, 50);
   //text("Y:" + curr_coor[1], 100, 50);
   if (isBlack) {
-    text("Turn: Black", 50, 50);
+    text("Turn: Black", 30, 40);
   } else {
-    text("Turn: White", 50, 50);
+    text("Turn: White", 30, 40);
   }
+  text("New Game (N)", 30, 80);
+  text("Withdraw (Z)", 30, 120);
 }
 
 void previewStep() {
@@ -67,6 +71,14 @@ void previewStep() {
     noFill();
     stroke(0, 128);
     circle(x_coor * 50 + 230 + 25, y_coor * 50 + 110 + 25, 45);
+  }
+}
+
+void copyArray(color[][] source, color[][] target) {
+  for (int i = 0; i < source.length; i++) {
+    for (int j = 0; j < source[i].length; j++) {
+      target[i][j] = source[i][j];
+    }
   }
 }
 
@@ -83,8 +95,8 @@ void mouseReleased() {
       return;
     }
 
-    //push previous chess into history
-    history_board = board;
+    //copy previous board into history
+    copyArray(board, history_board);
 
     //switching turn after every mouseRelease
     if (isBlack) {
@@ -100,6 +112,7 @@ void mouseReleased() {
 
 void keyReleased() {
   if (key == 'z' || key == 'Z') {
+    copyArray(history_board, board);
   }
   //restart a new game
   if (key == 'n' || key == 'N') {
