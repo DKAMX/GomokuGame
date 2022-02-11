@@ -24,11 +24,11 @@ void draw() {
   stroke(black);
 
   //draw the chessboard
-  for (int i = 0; i <= board.length; i++) {
+  for (int i = 0; i <= board.length + 1; i++) {
     //horizontal line
-    line(230, i * 50 + 110, 730, i * 50 + 110);
+    line(205, i * 50 + 85, 755, i * 50 + 85);
     //vertical line
-    line(i * 50 + 230, 110, i * 50 + 230, 610);
+    line(i * 50 + 205, 85, i * 50 + 205, 635);
   }
 
   //draw the chess pices
@@ -41,6 +41,8 @@ void draw() {
       }
     }
   }
+  
+  previewStep();
 
   //output info
   fill(black);
@@ -53,8 +55,19 @@ void draw() {
   }
 }
 
+void previewStep() {
+  if (mouseX >= 230 && mouseX < 730 && mouseY >= 110 && mouseY < 610) {
+    int x_coor = round((mouseX - 230) / 50);
+    int y_coor = round((mouseY - 110) / 50);
+    noFill();
+    stroke(0, 128);
+    circle(x_coor * 50 + 230 + 25, y_coor * 50 + 110 + 25, 45);
+  }
+}
+
 void mouseReleased() {
-  if (mouseX >= 230 && mouseX <= 730 && mouseY >= 110 && mouseY <= 610) {
+  // conditon "<=" will throw Exception in coor calculation
+  if (mouseX >= 230 && mouseX < 730 && mouseY >= 110 && mouseY < 610) {
     curr_coor[0] = round((mouseX - 230) / 50);
     curr_coor[1] = round((mouseY - 110) / 50);
     if (isBlack) {
