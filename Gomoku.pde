@@ -14,6 +14,7 @@ color[][] board;        //chessboard
 color[][] history_board;
 int[] curr_coor;        //current coordinate
 boolean isBlack;
+boolean history_turn;
 
 void setup() {
   size(960, 720);
@@ -58,7 +59,7 @@ void draw() {
   } else {
     text("Turn: White", 30, 40);
   }
-  text("New Game (N)", 30, 80);
+  text("Restart (N)", 30, 80);
   text("Withdraw (Z)", 30, 120);
 }
 
@@ -95,8 +96,9 @@ void mouseReleased() {
       return;
     }
 
-    //copy previous board into history
+    //copy previous board and turn info into history
     copyArray(board, history_board);
+    history_turn = isBlack;
 
     //switching turn after every mouseRelease
     if (isBlack) {
@@ -113,6 +115,7 @@ void mouseReleased() {
 void keyReleased() {
   if (key == 'z' || key == 'Z') {
     copyArray(history_board, board);
+    isBlack = history_turn;
   }
   //restart a new game
   if (key == 'n' || key == 'N') {
