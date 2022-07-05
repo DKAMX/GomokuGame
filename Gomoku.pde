@@ -1,7 +1,6 @@
 /*
  Gomoku game
  Code written by DKAMX
- Running under Processing environment
  */
 
 import java.util.Arrays;
